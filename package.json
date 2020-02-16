@@ -14,9 +14,7 @@
     "start:prod": "webpack-dev-server --mode production",
     "format": "prettier --write \"src/**/*.js\"",
     "eslint-fix": "eslint --fix \"src/**/*.js\"",
-    "build": "webpack --mode production",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
