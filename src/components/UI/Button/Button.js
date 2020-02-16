@@ -4,7 +4,12 @@ import "./Button.scss";
 import propTypes from "prop-types";
 
 const Button = (props) => {
-    return (<button value={props.value} onClick={(value) => props.handleClick(value)} className="button-progressbar">{props.text}</button>);
+    return (<button
+        className="button-progressbar"
+        value={props.value}
+        onClick={(value) => props.handleClick(value)} >
+        {props.text}
+    </button>);
 };
 
 Button.propTypes = {

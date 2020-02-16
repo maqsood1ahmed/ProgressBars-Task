@@ -1,19 +1,26 @@
 {
+  "homepage": "https://maqsood1ahmed.github.io/ProgressBars-Task", 
   "name": "progress-bars-reactjs",
   "version": "1.0.0",
   "description": "FrontEnd Assignment by Maqsood Ahmed - Progress bars - for 2359 Media Pte Ltd.",
   "main": "index.js",
+  "engines": {
+    "npm": "6.12.1",
+    "node": "12.13.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "webpack-dev-server --mode development",
     "start:prod": "webpack-dev-server --mode production",
     "format": "prettier --write \"src/**/*.js\"",
     "eslint-fix": "eslint --fix \"src/**/*.js\"",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maqsood1ahmed"
+    "url": "https://github.com/maqsood1ahmed/ProgressBars-Task"
   },
   "keywords": [
     "FrontEnd",
@@ -34,6 +41,7 @@
     "eslint-config-react": "^1.1.7",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-react": "^7.12.3",
+    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^3.2.0",
     "prettier": "1.15.3",
     "sass": "^1.25.0",
