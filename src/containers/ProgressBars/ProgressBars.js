@@ -5,6 +5,7 @@ import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import DropDownMenu from "../../components/UI/DropDown/DropDownMenu";
 import Button from "../../components/UI/Button/Button";
 import LoadingSpinner from "../../components/UI/Spinner/Spinner";
+import config from "../../config";
 import './progressbars.scss';
 
 class ProgressBars extends React.Component {
@@ -22,7 +23,8 @@ class ProgressBars extends React.Component {
     componentDidMount () {
         let { bars, buttons, limit, loading } = this.state;
         let data;
-        axios.get('http://pb-api.herokuapp.com/bars')
+        let barsApiURL = config.apiGateway + "/bars";
+        axios.get(barsApiURL)
             .then(res => {
                 data = res.data;
                 if (data && data.bars && data.buttons) {
