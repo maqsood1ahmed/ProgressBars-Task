@@ -1,0 +1,7 @@
+$backgroundColor: white;
+
+html, body, #root, #root>div {
+    height: 100%;
+    background-color: $backgroundColor;
+    margin: 0;
+}
