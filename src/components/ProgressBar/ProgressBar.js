@@ -10,11 +10,11 @@ const progressBar = {
 };
 
 const ProgressBar = (props) => {
-    let percentage = ((props.percentage >= 100) ? 100 : props.percentage) + "%";
+    let percentageLimit = props.percentageLimit(0, props.percentage, 100) + "%";
     const progressBarProgress = {
-        width: percentage,
+        width: percentageLimit,
         height: "100%",
-        backgroundColor: ((props.percentageShow >= 100) ? "red" : "#3498db"),
+        backgroundColor: ((props.percentage > 100) ? "red" : "#3498db"),
         marginTop: "10px",
         position: "relative",
         transition: "width 0.3s ease in out"
@@ -28,14 +28,14 @@ const ProgressBar = (props) => {
     return (
         <div className="progress-bar" style={progressBar}>
             <div className="progress-bar-progress" style={progressBarProgress} />
-            <p style={textStyle}>{props.percentageShow}%</p>
+            <p style={textStyle}>{props.percentage}%</p>
         </div>
     );
 };
 
 ProgressBar.propTypes = {
     percentage: propTypes.number,
-    percentageShow: propTypes.number
+    percentageLimit: propTypes.func
 };
 
 export default ProgressBar;

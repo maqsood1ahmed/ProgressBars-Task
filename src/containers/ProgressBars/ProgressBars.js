@@ -13,7 +13,7 @@ class ProgressBars extends React.Component {
         this.state = {
             bars: [],
             buttons: [],
-            limit: 0,
+            limit: 100, //default percentage limit is 100
             loading: true,
             selectedBar: 0,
             error: ""
@@ -42,20 +42,31 @@ class ProgressBars extends React.Component {
     handleButtonClick = (event) => {
         let { bars, selectedBar } = this.state;
         let value = event.target.value;
-        bars[selectedBar] = parseInt(bars[selectedBar], 10) + parseInt(value, 10);
+        let sum = parseInt(bars[selectedBar], 10) + parseInt(value, 10);
+
+        let bar = this.barZeroLimit(sum); //if bar is negative value then get 0
+
+        bars[selectedBar] = bar;
+        console.log(bars[selectedBar], this.state.limit);
         this.setState({ bars });
     }
-    percentageLimit = (min, value, max) => {
-        // currently using 100 as maximum default limit
+    barZeroLimit = (value) => {
+        return Math.max(0, value);
+    }
+    percentageLimit = (min, value, max) => { //progress bar percentage limit between 0 and 100
         return Math.min(Math.max(min, value), max);
     }
+    calculatePercentage = (currentValue, limit) => {
+        let percentage = Math.round(((currentValue / limit) * 100)); //calculate percentage using limit and bar value and then round to first 2 digits
+        return percentage;
+    }
     render () {
-        console.log('bars', this.state.bars, "limit=> ", this.state.limit);
-        let { bars, buttons, loading } = this.state;
+        // console.log('bars', this.state.bars, "limit=> ", this.state.limit);
+        let { bars, buttons, limit, loading } = this.state;
         let progressBarsJSX = "";
         let buttonsJSX = "";
         // eslint-disable-next-line max-len
-        if (bars && bars.length > 0) { progressBarsJSX = <ul>{bars.map((bar, index) => <ProgressBar key={index} percentageShow = {this.calculatePercentage(bar)} percentage = {this.percentageLimit(0, bar, 100)} />)}</ul>; }
+        if (bars && bars.length > 0) { progressBarsJSX = <ul>{bars.map((bar, index) => <ProgressBar key={index} percentage = {this.calculatePercentage(bar, limit)} percentageLimit = {this.percentageLimit.bind(this)} />)}</ul>; }
         // eslint-disable-next-line max-len
         if (buttons && buttons.length > 0) { buttonsJSX = <ul>{buttons.map((button, index) => <Button key={index} handleClick={this.handleButtonClick.bind(this)} text={button.toString()} value = {button} />)} </ul>; }
         return (
