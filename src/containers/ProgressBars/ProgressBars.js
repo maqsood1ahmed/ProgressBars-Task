@@ -23,7 +23,7 @@ class ProgressBars extends React.Component {
     componentDidMount () {
         let { bars, buttons, limit, loading } = this.state;
         let data;
-        let barsApiURL = config.apiGateway + "/bars";
+        let barsApiURL = config.apiGateway.URL + "/bars";
         axios.get(barsApiURL)
             .then(res => {
                 data = res.data;
