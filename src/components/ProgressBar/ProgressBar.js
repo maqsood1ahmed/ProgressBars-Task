@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./PrgoressBar.scss";
 import propTypes from "prop-types";
 
 const progressBar = {

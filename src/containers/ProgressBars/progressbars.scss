@@ -1,49 +1,93 @@
-#app-container {
-    display: flex;
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    // align-items: center;
+$displayType: flex;
+
+.display-flex-horizontal {
+    display: $displayType;
+    flex-direction: row;
+}
+.display-flex-vertical {
+    display: $displayType;
     flex-direction: column;
     justify-content: center;
 }
-#app-header {
-    flex-basis: 20%;
-}
-#app-body {
-    display: flex;
-    flex-basis: 70%;
+
+
+#app-container {
+    @extend .display-flex-vertical;
+    flex: 1;
     width: 100%;
     height: 100%;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-}
-#app-footer {
-    flex-basis: 30%;
-}
 
-#progress-bars-header {
-    font-size: 38px;
-    font-weight: 900;
-    margin-bottom: 10px;
-    margin-left: 20px;
-}
-
-#progress-bars-container{
-    width: 50%;
-}
-
-#bar-controllers {
-    display: flex;
-    flex-direction: row
-    ;
-    #buttons-container {
-        display: flex;
+    #app-header {
+        flex-basis: 20%;
     }
-    
-    #buttons-container>ul {
-        display: flex;
-        flex-direction: row;
+    #app-body {
+        @extend .display-flex-vertical;
+        flex-basis: 70%;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        
+
+        #progress-bars-header {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            margin-left: 20px;
+        }
+        
+        #progress-bars-container{
+            width: percentage(4/10);
+        }
+
+        #progress-bars-container>ul{
+            padding-left: 0;
+        }
+
+        @media screen and (max-width: 1240px) {
+            #progress-bars-container {
+                width: percentage(6/10); 
+            }
+        }
+
+        @media screen and (max-width: 1100px) {
+            #progress-bars-container {
+                width: percentage(7/10); 
+            }
+        }
+        @media screen and (max-width: 900px) {
+            #progress-bars-container {
+                width: percentage(8/10);  
+            }
+        }
+        @media screen and (max-width: 600px) {
+            #progress-bars-container {
+                width: percentage(9/10);  
+            }
+        }
+
+        #bar-controllers {
+            @extend .display-flex-horizontal;
+            margin-top: 30px;
+
+            #buttons-container {
+                display: flex;
+            }
+            
+            #buttons-container>ul {
+                @extend .display-flex-horizontal;
+                padding-left: 0px;
+            }
+        }
+
+        #source-code-link {
+            margin-top: 30px;;
+            font-size: 20px;
+            font-weight: 600;
+            color: rgb(83, 145, 196);
+        }
+    }
+
+    #app-footer {
+        flex-basis: 30%;
     }
 }

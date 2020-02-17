@@ -1,12 +1,12 @@
 import React from "react";
-import axios from "axios";
 
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import DropDownMenu from "../../components/UI/DropDown/DropDownMenu";
 import Button from "../../components/UI/Button/Button";
 import LoadingSpinner from "../../components/UI/Spinner/Spinner";
-import config from "../../config";
 import './progressbars.scss';
+import config from "../../config";
+import { getBarsData } from "../../api/progressbarsApi";
 
 class ProgressBars extends React.Component {
     constructor (props) {
@@ -16,31 +16,33 @@ class ProgressBars extends React.Component {
             buttons: [],
             limit: 100, //default percentage limit is 100
             loading: true,
-            selectedBar: 0,
-            error: ""
+            selectedBar: 0
         };
     }
     componentDidMount () {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
         let { bars, buttons, limit, loading } = this.state;
-        let data;
-        let barsApiURL = config.apiGateway.URL + "/bars";
-        axios.get(barsApiURL)
-            .then(res => {
-                data = res.data;
-                if (data && data.bars && data.buttons) {
-                    bars = data.bars;
-                    buttons = data.buttons;
-                    limit = data.limit ? data.limit : 100;
-                    loading = false;
-                    this.setState({ bars, buttons, limit, loading });
-                }
-            })
-            .catch(error => this.setState({ error }));
+        try {
+            let data = await getBarsData();
+            if (data && data.bars && data.buttons) {
+                bars = data.bars;
+                buttons = data.buttons;
+                limit = data.limit ? data.limit : 100;
+                loading = false;
+                this.setState({ bars, buttons, limit, loading });
+            }
+        } catch (err) {
+            console.log("unable to fetch bars data => ", err);
+        }
     }
 
     handleDropDownChange = (value) => {
         this.setState({ selectedBar: value });
     }
+
     handleButtonClick = (event) => {
         let { bars, selectedBar } = this.state;
         let value = event.target.value;
@@ -49,21 +51,29 @@ class ProgressBars extends React.Component {
         let bar = this.barZeroLimit(sum); //if bar is negative value then get 0
 
         bars[selectedBar] = bar;
-        console.log(bars[selectedBar], this.state.limit);
         this.setState({ bars });
     }
+
     barZeroLimit = (value) => {
         return Math.max(0, value);
     }
+
     percentageLimit = (min, value, max) => { //progress bar percentage limit between 0 and 100
         return Math.min(Math.max(min, value), max);
     }
+
     calculatePercentage = (currentValue, limit) => {
         let percentage = Math.round(((currentValue / limit) * 100)); //calculate percentage using limit and bar value and then round to first 2 digits
         return percentage;
     }
+
+    openGitRepo = (e) => {
+        e.preventDefault();
+        let sourceCodeLink = config.sourceCodeLink;
+        window.open(sourceCodeLink);
+    }
+
     render () {
-        // console.log('bars', this.state.bars, "limit=> ", this.state.limit);
         let { bars, buttons, limit, loading } = this.state;
         let progressBarsJSX = "";
         let buttonsJSX = "";
@@ -75,7 +85,7 @@ class ProgressBars extends React.Component {
             <div id="app-container">
                 <div id="app-header"/>
                 <div id="app-body">
-                    <div id="progress-bars-header"> Progress Bars Demo </div>
+                    <div id="progress-bars-header">{!loading && "Progress Bars Demo"}</div>
                     <div id="progress-bars-container">
                         {loading ? <LoadingSpinner /> : progressBarsJSX }
                     </div>
@@ -85,11 +95,14 @@ class ProgressBars extends React.Component {
                             {(bars && bars.length > 0) && <DropDownMenu optionsList={bars} handleChange={this.handleDropDownChange.bind(this)}/>}
                         </div>
                         <div id="buttons-container">
-                            {loading ? <div/> : buttonsJSX}
+                            {!loading && buttonsJSX}
                         </div>
                     </div>
+                    <div id="source-code-link">
+                        <a href="#" onClick={this.openGitRepo.bind(this)}> {!loading && "Source Code"} </a>
+                    </div>
                 </div>
-                <div id="app-footer"/>
+                <div id="app-footer" />
             </div>
         );
     }

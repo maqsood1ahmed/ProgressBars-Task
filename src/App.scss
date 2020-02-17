@@ -1,7 +1,8 @@
 $backgroundColor: white;
+$height: percentage(4/4);
 
 html, body, #root, #root>div {
-    height: 100%;
+    height: $height;
     background-color: $backgroundColor;
     margin: 0;
 }

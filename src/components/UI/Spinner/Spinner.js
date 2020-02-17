@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Spinner.scss";
 
-const LoadingSpinner = (props) => {
+const LoadingSpinner = () => {
     return (
         <div className="spinner">
             <span className="spinner-inner-1" />
