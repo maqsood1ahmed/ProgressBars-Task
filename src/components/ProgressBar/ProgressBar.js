@@ -21,7 +21,7 @@ const ProgressBar = props => {
     let textStyle = {
         position: 'absolute',
         marginTop: '-45px',
-        left: '50%',
+        left: '49%',
         fontSize: '25px'
     };
     return (
