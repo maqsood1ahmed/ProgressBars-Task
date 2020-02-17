@@ -17,4 +17,6 @@ To use as production mode, run `yarn run start:prod`
 
 For production build, run `yarn run build`
 
+## Live Demo
 
+[ProgressBars Live Demo](https://elastic-hugle-0f659b.netlify.com/)
