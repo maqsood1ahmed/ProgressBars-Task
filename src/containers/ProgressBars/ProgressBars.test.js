@@ -1,9 +1,9 @@
-import React from "react";
-import ProgressBars from "./ProgressBars";
+import React from 'react';
+import ProgressBars from './ProgressBars';
 
-import renderer from "react-test-renderer";
+import renderer from 'react-test-renderer';
 
-test("Progress Bar functions testing", () => {
+test('Progress Bar functions testing', () => {
     let component = renderer.create(<ProgressBars />).getInstance();
 
     let treeA = component.calculatePercentage(75, 180);

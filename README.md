@@ -3,16 +3,18 @@ Progress bars controlled by their respective buttons.
 
 ## Setup
 
-To install all node modules Run `npm install`
+To install all node modules run `yarn install`
 
-To resolve code errors or warnings that can later cause bugs use `npm run eslint-fix`.
+To run it on **localhost** in development mode run `yarn run start:dev`
 
-To run all jest tests run `npm test`
+To Format code according to Prettier rules run `yarn run format`
 
-To use it as development mode, run `npm run start:dev`
+To resolve code errors or warnings that can later cause bugs run `yarn run eslint-fix`.
 
-To use as production mode, run `npm run start:prod`
+To run all jest tests run `yarn test`
 
-For production build, run `npm run build`
+To use as production mode, run `yarn run start:prod`
+
+For production build, run `yarn run build`
 
 

@@ -1,15 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import "./Button.scss";
-import propTypes from "prop-types";
+import './Button.scss';
+import propTypes from 'prop-types';
 
-const Button = (props) => {
-    return (<button
-        className="button-progressbar"
-        value={props.value}
-        onClick={(value) => props.handleClick(value)} >
-        {props.text}
-    </button>);
+const Button = props => {
+    return (
+        <button
+            className="button-progressbar"
+            value={props.value}
+            onClick={value => props.handleClick(value)}
+        >
+            {props.text}
+        </button>
+    );
 };
 
 Button.propTypes = {

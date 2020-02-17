@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import ProgressBar from "../../components/ProgressBar/ProgressBar";
-import DropDownMenu from "../../components/UI/DropDown/DropDownMenu";
-import Button from "../../components/UI/Button/Button";
-import LoadingSpinner from "../../components/UI/Spinner/Spinner";
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import DropDownMenu from '../../components/UI/DropDown/DropDownMenu';
+import Button from '../../components/UI/Button/Button';
+import LoadingSpinner from '../../components/UI/Spinner/Spinner';
 import './progressbars.scss';
-import config from "../../config";
-import { getBarsData } from "../../api/progressbarsApi";
+import config from '../../config';
+import { getBarsData } from '../../api/progressbarsApi';
 
 class ProgressBars extends React.Component {
     constructor (props) {
@@ -35,15 +35,15 @@ class ProgressBars extends React.Component {
                 this.setState({ bars, buttons, limit, loading });
             }
         } catch (err) {
-            console.log("unable to fetch bars data => ", err);
+            console.log('unable to fetch bars data => ', err);
         }
-    }
+    };
 
-    handleDropDownChange = (value) => {
+    handleDropDownChange = value => {
         this.setState({ selectedBar: value });
-    }
+    };
 
-    handleButtonClick = (event) => {
+    handleButtonClick = event => {
         let { bars, selectedBar } = this.state;
         let value = event.target.value;
         let sum = parseInt(bars[selectedBar], 10) + parseInt(value, 10);
@@ -52,54 +52,92 @@ class ProgressBars extends React.Component {
 
         bars[selectedBar] = bar;
         this.setState({ bars });
-    }
+    };
 
-    barZeroLimit = (value) => {
+    barZeroLimit = value => {
         return Math.max(0, value);
-    }
+    };
 
-    percentageLimit = (min, value, max) => { //progress bar percentage limit between 0 and 100
+    percentageLimit = (min, value, max) => {
+        //progress bar percentage limit between 0 and 100
         return Math.min(Math.max(min, value), max);
-    }
+    };
 
     calculatePercentage = (currentValue, limit) => {
-        let percentage = Math.round(((currentValue / limit) * 100)); //calculate percentage using limit and bar value and then round to first 2 digits
+        let percentage = Math.round((currentValue / limit) * 100); //calculate percentage using limit and bar value and then round to first 2 digits
         return percentage;
-    }
+    };
 
-    openGitRepo = (e) => {
+    openGitRepo = e => {
         e.preventDefault();
         let sourceCodeLink = config.sourceCodeLink;
         window.open(sourceCodeLink);
-    }
+    };
 
     render () {
         let { bars, buttons, limit, loading } = this.state;
-        let progressBarsJSX = "";
-        let buttonsJSX = "";
+        let progressBarsJSX = '';
+        let buttonsJSX = '';
         // eslint-disable-next-line max-len
-        if (bars && bars.length > 0) { progressBarsJSX = <ul>{bars.map((bar, index) => <ProgressBar key={index} percentage = {this.calculatePercentage(bar, limit)} percentageLimit = {this.percentageLimit.bind(this)} />)}</ul>; }
+        if (bars && bars.length > 0) {
+            progressBarsJSX = (
+                <ul>
+                    {bars.map((bar, index) => (
+                        <ProgressBar
+                            key={index}
+                            percentage={this.calculatePercentage(bar, limit)}
+                            percentageLimit={this.percentageLimit.bind(this)}
+                        />
+                    ))}
+                </ul>
+            );
+        }
         // eslint-disable-next-line max-len
-        if (buttons && buttons.length > 0) { buttonsJSX = <ul>{buttons.map((button, index) => <Button key={index} handleClick={this.handleButtonClick.bind(this)} text={button.toString()} value = {button} />)} </ul>; }
+        if (buttons && buttons.length > 0) {
+            buttonsJSX = (
+                <ul>
+                    {buttons.map((button, index) => (
+                        <Button
+                            key={index}
+                            handleClick={this.handleButtonClick.bind(this)}
+                            text={button.toString()}
+                            value={button}
+                        />
+                    ))}{' '}
+                </ul>
+            );
+        }
         return (
             <div id="app-container">
-                <div id="app-header"/>
+                <div id="app-header" />
                 <div id="app-body">
-                    <div id="progress-bars-header">{!loading && "Progress Bars Demo"}</div>
+                    <div id="progress-bars-header">
+                        {!loading && 'Progress Bars Demo'}
+                    </div>
                     <div id="progress-bars-container">
-                        {loading ? <LoadingSpinner /> : progressBarsJSX }
+                        {loading ? <LoadingSpinner /> : progressBarsJSX}
                     </div>
                     <div id="bar-controllers">
                         <div id="dropdownlist">
                             {/* eslint-disable-next-line max-len */}
-                            {(bars && bars.length > 0) && <DropDownMenu optionsList={bars} handleChange={this.handleDropDownChange.bind(this)}/>}
+                            {bars && bars.length > 0 && (
+                                <DropDownMenu
+                                    optionsList={bars}
+                                    handleChange={this.handleDropDownChange.bind(
+                                        this
+                                    )}
+                                />
+                            )}
                         </div>
                         <div id="buttons-container">
                             {!loading && buttonsJSX}
                         </div>
                     </div>
                     <div id="source-code-link">
-                        <a href="#" onClick={this.openGitRepo.bind(this)}> {!loading && "Source Code"} </a>
+                        <a href="#" onClick={this.openGitRepo.bind(this)}>
+                            {' '}
+                            {!loading && 'Source Code'}{' '}
+                        </a>
                     </div>
                 </div>
                 <div id="app-footer" />

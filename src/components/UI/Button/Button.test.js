@@ -3,7 +3,7 @@ import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Button from "./Button";
+import Button from './Button';
 
 configure({ adapter: new Adapter() });
 
@@ -12,9 +12,7 @@ describe('Button test', () => {
         expect(Button).toBeDefined();
     });
     it('should render correctly', () => {
-        const tree = shallow(
-            <Button text="-10" value={-10}/>
-        );
+        const tree = shallow(<Button text="-10" value={-10} />);
         expect(tree).toMatchSnapshot();
     });
 });
