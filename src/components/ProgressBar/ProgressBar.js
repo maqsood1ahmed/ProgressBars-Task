@@ -16,7 +16,7 @@ const ProgressBar = props => {
         backgroundColor: props.percentage > 100 ? 'red' : '#3498db',
         marginTop: '10px',
         position: 'relative',
-        transition: 'width 0.8s'
+        transition: '.35s ease-in-out'
     };
     let textStyle = {
         position: 'absolute',
