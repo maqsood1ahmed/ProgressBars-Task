@@ -13,7 +13,7 @@ const ProgressBar = props => {
     const progressBarProgress = {
         width: percentageLimit,
         height: '100%',
-        backgroundColor: props.percentage > 100 ? 'red' : '#3498db',
+        backgroundColor: props.percentage > 100 ? '#ff3f34' : '#3498db',
         marginTop: '10px',
         position: 'relative',
         transition: '.35s ease-in-out'
