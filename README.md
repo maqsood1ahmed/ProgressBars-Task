@@ -20,3 +20,9 @@ For production build, run `yarn run build`
 ## Live Demo
 
 [ProgressBars Live Demo](https://elastic-hugle-0f659b.netlify.com/)
+
+
+## Task Requirements
+![](images/req1.png)
+![](images/req2.jpg)
+![](images/req3.jpg)
